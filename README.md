@@ -1,5 +1,7 @@
-This C code manages student data, including adding, searching, modifying, deleting, and organizing students based on their academic information :
-
+This C code manages student data, including adding, searching, modifying, deleting, and organizing students based on their academic information.
+* The Student structure holds details such as ID, name, year of birth, group, and marks for several subjects.
+* Features :
+This system includes the following key functionalities:
 1. search():
 Purpose: Searches for a student by their unique identifier (ID).
 Description: This function takes an ID as input and searches through the student records file to find and display the student’s details. If the student is found, their data is shown, otherwise an error message is returned.
@@ -27,3 +29,6 @@ Description: This function filters the student records based on a specific group
 7. reorganization():
 Purpose: Reorganizes the student records in a specific order or structure.
 Description: This function reorganizes the student records based on a specific criterion, such as sorting by student names, IDs, or average marks. After the records are sorted or reordered, they are written back into the file, ensuring that the list is maintained in the new desired order.
+* Acknowledgment:
+  Programming Language: C
+  Compiler/IDE: Code::Blocks and GCC.
