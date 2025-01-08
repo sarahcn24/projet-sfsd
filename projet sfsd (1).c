@@ -34,25 +34,23 @@ int Position(const char *filename, int count, int newId,FILE *file) {
         return -1;
     }
 
-    int left = 0, right = count - 1, mid;
+   
     Student student;
-    int pos = 0;
+    int pos = 0;int j=0;
 
-    while ( fscanf(file,"%d;%*[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%*f;%*d\n",
-                  &student.id) != EOF) {
-        // on utilise la recherche binaire car le fichier est ordonee
-        mid = left + (right - left) / 2;
+    while ( (fscanf(file,"%d;%*[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%*f;%*d\n",
+                  &student.id) != EOF)&&(student.id<newId)) {j=j+1;} 
+        // on  recherche si il exist ou on return la position 
+       
         if (student.id == newId) {
             fclose(file);
             return -1; //  le id est exist
         }
-        if (student.id < newId) {
-            left = mid + 1;
-            pos++;
-        } else {
-            right = mid - 1;
-        }
-    }
+        
+         else {pos=j;}
+            
+        
+    
 
     fclose(file);
     return pos; //laposition ou en ajout l'etudiant
