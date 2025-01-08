@@ -175,7 +175,7 @@ fclose(F);
 void organ(char file[],int n)
 {
 int a,i,j,Pmax;
-struct rec c[n],a;
+struct rec c[n],x;
 char buf[50];
 
 FILE *f;
