@@ -21,7 +21,10 @@ typedef struct {
     int SD;
 } Student;
 
-
+struct rec {
+             int id;
+             float av;
+};
 // Function to find the student's position and check if it already exists
 int Position(const char *filename, int count, int newId,FILE *file) {
 
@@ -93,10 +96,10 @@ char buffer [1024];
    gets(buf.full_name);
     printf("Enter the group: ");
    gets(buf.group);
-    printf("Enter the date of birth (1990–2020): ");
+    printf("Enter the date of birth (1990â€“2020): ");
     scanf("%d",&buf.yob);
     while (buf.yob < 1990 || buf.yob > 2020) {
-        printf("Error: Enter a valid DOB (1990–2020): ");scanf("%d",&buf.yob);}
+        printf("Error: Enter a valid DOB (1990â€“2020): ");scanf("%d",&buf.yob);}
 
     printf("Enter the module notes :\n");
   do { printf("SFSD:");       scanf("%f",&buf.sfsd.mark);} while ((buf.sfsd.mark<0)||(buf.sfsd.mark>20));
@@ -109,21 +112,21 @@ char buffer [1024];
    // Ouvrir un fichier temporaire
     temp_file = fopen("temp.txt", "w");
     if (!temp_file) {
-        printf("Erreur : impossible de créer un fichier temporaire.\n");
+        printf("Erreur : impossible de crÃ©er un fichier temporaire.\n");
         fclose(file);
         return;}
 
-    // Copier les lignes jusqu'à la position souhaitée
+    // Copier les lignes jusqu'Ã  la position souhaitÃ©e
     for (i = 0; i < pos; i++) {
         fgets(buffer, sizeof(buffer), file);
         fputs(buffer, temp_file);}
 
-    // Ajouter les nouvelles données
+    // Ajouter les nouvelles donnÃ©es
     fprintf(temp_file, "%d;%s;%d;%s;%.1f,%d;%.1f,%d;%.1f,%d;%.1f,%d;%.1f;%d\n",
             buf.id, buf.full_name, buf.yob, buf.group,
             buf.sfsd.mark, 4, buf.oop.mark, 3, buf.anal.mark, 2, buf.alge.mark, 5, buf.ave, buf.SD);
 
-    // Copier le reste des données
+    // Copier le reste des donnÃ©es
     while (fgets(buffer, sizeof(buffer), file)) {
         fputs(buffer, temp_file);}// Fermer les fichiers
     fclose(file);
@@ -171,8 +174,8 @@ fclose(F);
 // function to display students of a group in order
 void organ(char file[],int n)
 {
-float t[n],x;
-int a,i,v[n],j,Pmax;
+int a,i,j,Pmax;
+struct rec c[n],a;
 char buf[50];
 
 FILE *f;
@@ -182,23 +185,23 @@ if(f==NULL)printf("error");
 
 //store average in t[] and id in v[]
 for(j=0;j<n;j++)
-               { fscanf(f,"%d;%*[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%f;%*d\n",&v[j],&t[j]);}
+               { fscanf(f,"%d;%*[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%f;%*d\n",&c[j].id,&c[j].av);}
 fclose(f);
 
 // sorting the two arrays simultaneously using the method of permutation
 for(i=0;i<n;i++)
                 {Pmax=i;
-                 for(j=i+1;j<n;j++){ if(t[j]>t[Pmax]){ Pmax=j;}}
-                 if(i!=Pmax){ x=t[i]; t[i]=t[Pmax]; t[Pmax]=x;
-                              a=v[i]; v[i]=v[Pmax]; v[Pmax]=a;}
+                 for(j=i+1;j<n;j++){ if(c[j].av>c[Pmax].av){ Pmax=j;}}
+                 if(i!=Pmax){ x=c[i]; c[i]=c[Pmax]; c[Pmax]=x;
+                            }
                 }
 //extract the name of each student in the array from the file
 for(j=0;j<n;j++)
                {f=fopen(file,"r");
-                do{fscanf(f,"%d;%[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%*f;%*d\n",&a,&buf);}while(a!=v[j]);
+                do{fscanf(f,"%d;%[^;];%*d;%*[^;];%*f,%*d;%*f,%*d;%*f,%*d;%*f,%*d;%*f;%*d\n",&a,&buf);}while(a!=c[j].id);
                 fclose(f);
 //display the information of student first, sec....
-                if(a==v[j]){printf("%.2d.",a); printf("%s: ",buf); printf("%.2f\n",t[j]); }
+                if(a==c[j].id){printf("%.2d.",a); printf("%s: ",buf); printf("%.2f\n",c[j].av); }
                }
 }
 
@@ -302,7 +305,7 @@ fclose(f);
 
 
 
-//function for the physical deletion of students that have 0 in SD:
+//function for the physical deletion of students that have 1 in SD:
 void sup_phy(const char *filename,FILE *F) {
     FILE *f;//pointer for the temporary file;
     //pointer for the original file;
@@ -491,8 +494,8 @@ char groupe[2];
 char answer[10];
 puts("1.add");
 puts("2.searching");
-puts("3.the logiqual supression");
-puts("4.the supp-phy");
+puts("3.logiqual delete");
+puts("4.physical delete");
 puts("5.extract a group");
 puts("6.modification");
 scanf("%d",&n);
