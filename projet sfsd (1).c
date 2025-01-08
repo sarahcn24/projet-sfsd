@@ -280,11 +280,11 @@ fclose(f);
             }
 
             switch (trouve) {
-            case 0 : printf("\nstudent not found.\n");
+            case 0 : printf("\nstudent %d not found.\n",num);
             break ;
-            case 1 : printf ("\nstudent deleted successfully.\n");
+            case 1 : printf ("\nstudent %d deleted successfully.\n",num);
             break ;
-            case 2 : printf ("\nstudent already deleted.\n");
+            case 2 : printf ("\nstudent %d already deleted.\n",num);
             break ;
             }
 
