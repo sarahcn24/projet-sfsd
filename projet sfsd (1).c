@@ -389,7 +389,7 @@ FILE *modify (FILE *F, int id, char *answer,const char *filename) {
     char change[20]; // Temporary storage for group change
     float change1;   // Temporary storage for mark change
     float new_ave;
-    int found=0;
+    int found=0,change2;
 
 
     // Open file
@@ -448,8 +448,8 @@ FILE *modify (FILE *F, int id, char *answer,const char *filename) {
 
                 if (strcmp(answer, "birth_year") == 0) {
                 printf("Enter the new birth year: ");
-                scanf("%s", change);
-                strcpy(buf.yob, change);}
+                scanf("%d", &change2);
+                buf.yob=change2;}
 
              if (strcmp(answer, "sfsd") == 0 ||
            strcmp(answer, "oop") == 0 ||
