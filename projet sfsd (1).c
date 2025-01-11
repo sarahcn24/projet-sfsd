@@ -382,13 +382,11 @@ void sup_phy(const char *filename,FILE *F) {
 };
 
 
-// Function to modify a student's data in the file
-
 FILE *modify (FILE *F, int id, char *answer,const char *filename) {
 
     FILE *f; // Temporary file for changing data
     Student buf;
-    char change[10]; // Temporary storage for group change
+    char change[20]; // Temporary storage for group change
     float change1;   // Temporary storage for mark change
     float new_ave;
     int found=0;
@@ -410,11 +408,13 @@ FILE *modify (FILE *F, int id, char *answer,const char *filename) {
 
                  // check the validation of the input field to modify
     while (strcmp(answer, "group") != 0 &&
+           strcmp(answer, "name") != 0 &&
+           strcmp(answer, "birth_year") != 0 &&
            strcmp(answer, "sfsd") != 0 &&
            strcmp(answer, "oop") != 0 &&
            strcmp(answer, "anal") != 0 &&
            strcmp(answer, "alge") != 0) {
-        printf("Enter a valid field to modify (group, sfsd, oop, anal, alge): ");
+        printf("Enter a valid field to modify (name, birth_year, group, sfsd, oop, anal, alge): ");
         scanf("%s", answer);
     }
 
@@ -438,8 +438,23 @@ FILE *modify (FILE *F, int id, char *answer,const char *filename) {
             if (strcmp(answer, "group") == 0) {
                 printf("Enter the new group: ");
                 scanf("%s", change);
-                strcpy(buf.group, change);
-            } else {
+                strcpy(buf.group, change);}
+
+                if (strcmp(answer, "name") == 0) {
+                printf("Enter the new name: ");
+                gets(change);
+                gets(change);
+                strcpy(buf.full_name, change);}
+
+                if (strcmp(answer, "birth_year") == 0) {
+                printf("Enter the new birth year: ");
+                scanf("%s", change);
+                strcpy(buf.yob, change);}
+
+             if (strcmp(answer, "sfsd") == 0 ||
+           strcmp(answer, "oop") == 0 ||
+           strcmp(answer, "anal") == 0 ||
+           strcmp(answer, "alge") == 0){
                 printf("Enter the new %s mark: ", answer);
                 scanf("%f", &change1);
 
@@ -479,7 +494,6 @@ FILE *modify (FILE *F, int id, char *answer,const char *filename) {
 
     return f;
 }
-
 
 
 int main() {
